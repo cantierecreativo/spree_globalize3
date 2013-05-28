@@ -4,10 +4,17 @@ Spree Globalize3
 Translatable Spree products and taxons with Globalize3.
 
 
-Example
+Install
 =======
 
-Example goes here.
+Gemfile:
+```ruby
+gem 'spree_globalize3',  github: 'cantierecreativo/spree_globalize3'
+```
+
+```
+rails g spree_globalize3:install
+```
 
 Testing
 -------

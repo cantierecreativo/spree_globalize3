@@ -24,6 +24,21 @@ module SpreeGlobalize3
            puts 'Skipping rake db:migrate, don\'t forget to run it!'
          end
       end
+
+      def change_routes
+        res = ask 'Would you like to alter the Spree routes to handle localized urls (eg. /en/products)? [Y/n]'
+        if res == '' || res.downcase == 'y'
+          insert_into_file File.join('config', 'routes.rb'), :after => "mount Spree::Core::Engine, :at => '/'\n" do
+            <<-ROUTES
+  root to: redirect("/\#{I18n.default_locale}/")
+  mount Spree::Core::Engine, at: '/:locale/', constraints: { :locale => /\#{I18n.available_locales.join('|')}/ }
+ROUTES
+          end
+          comment_lines File.join('config', 'routes.rb'), /mount Spree::Core::Engine, :at => '\/'/
+        else
+          puts 'Bad bad bad, don\'t forget to handle the locale switch!'
+        end
+      end
     end
   end
 end

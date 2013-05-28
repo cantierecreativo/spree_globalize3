@@ -1,7 +1,8 @@
 class AddGlobalizeToProducts < ActiveRecord::Migration
   def up
     Spree::Product.create_translation_table!({
-      name: :string, description: :text, meta_description: :string, meta_keywords: :string, permalink: :string
+      name: :string, description: :text,
+      meta_description: :string, meta_keywords: :string
     }, {
       migrate_data: true
     })

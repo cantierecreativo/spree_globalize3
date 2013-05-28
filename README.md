@@ -5,7 +5,7 @@ Translatable Spree products and taxons with Globalize3.
 
 
 Install
-=======
+-------
 
 Gemfile:
 ```ruby
@@ -15,6 +15,7 @@ gem 'spree_globalize3',  github: 'cantierecreativo/spree_globalize3'
 ```
 rails g spree_globalize3:install
 ```
+
 
 Testing
 -------

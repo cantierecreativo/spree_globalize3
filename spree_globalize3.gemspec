@@ -4,7 +4,7 @@ Gem::Specification.new do |s|
   s.name        = 'spree_globalize3'
   s.version     = '1.3.2'
   s.summary     = 'Multilanguage support for Spree'
-  s.description = 'Translatable Spree products and taxons with Globalize3'
+  s.description = 'Translatable Spree products, taxonomy and taxons with Globalize3'
   s.required_ruby_version = '>= 1.9.1'
 
   s.authors   = ['Francesco Disperati', 'David Librera']

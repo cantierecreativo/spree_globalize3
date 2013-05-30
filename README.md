@@ -1,7 +1,7 @@
 Spree Globalize3
 ===============
 
-Translatable Spree products and taxons with Globalize3.
+Translatable Spree products, taxonomy and taxons with Globalize3.
 
 
 Install

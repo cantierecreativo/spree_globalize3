@@ -19,6 +19,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'spree_core', '~> 1.3.2'
   s.add_dependency 'globalize3', '~> 0.3.0'
   s.add_dependency 'i18n'
+  s.add_dependency 'http_accept_language', '2.0.0.pre'
 
   s.add_development_dependency 'capybara', '~> 1.1.2'
   s.add_development_dependency 'coffee-rails'

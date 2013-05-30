@@ -30,11 +30,12 @@ module SpreeGlobalize3
         if res == '' || res.downcase == 'y'
           insert_into_file File.join('config', 'routes.rb'), :after => "mount Spree::Core::Engine, :at => '/'\n" do
             <<-ROUTES
-  root to: redirect("/\#{I18n.default_locale}/")
-  mount Spree::Core::Engine, at: '/:locale/', constraints: { :locale => /\#{I18n.available_locales.join('|')}/ }
+  root :to => 'spree/locale#detect'
+  mount Spree::Core::Engine, :at => '/:locale/', :constraints => { :locale => /\#{I18n.available_locales.join('|')}/ }
 ROUTES
           end
           comment_lines File.join('config', 'routes.rb'), /mount Spree::Core::Engine, :at => '\/'/
+          puts 'Remember to properly set i18n.default_locale and i18n.available_locales in config/application.rb!'
         else
           puts 'Bad bad bad, don\'t forget to handle the locale switch!'
         end

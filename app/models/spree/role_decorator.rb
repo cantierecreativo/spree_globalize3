@@ -1,3 +1,4 @@
 Spree::Role.class_eval do
-  translates :name
+  translates :name,
+             :fallbacks_for_empty_translations => true
 end

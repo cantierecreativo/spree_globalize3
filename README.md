@@ -17,6 +17,13 @@ gem 'spree_globalize3',  github: 'cantierecreativo/spree_globalize3', branch: '1
 rails g spree_globalize3:install
 ```
 
+Product paths are localized with i18n_routing. Define your
+translations in config/locales/:
+```yaml
+it:
+  resources:
+    products: 'prodotti'
+```
 
 Testing
 -------

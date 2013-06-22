@@ -1,0 +1,25 @@
+<div>
+  <ul class="available-locales">
+    <% I18n.available_locales.each do |locale| %>
+    <li>
+      <a href="#<%= locale %>-translation"><%= I18n.t(locale) %></a>
+    </li>
+    <% end %>
+  </ul>
+
+  <% I18n.available_locales.each do |locale| %>
+  <fieldset id="<%= locale %>-translation">
+    <% translation = f.object.translations.find_or_create_by_locale(locale) %>
+
+    <%= f.fields_for :translations do |ft| %>
+      <%= ft.hidden_field :locale %>
+      <%= f.field_container :name do %>
+        <%= ft.label :name, raw(t(:name) + content_tag(:span, ' *', :class => 'required')) %>
+        <%= ft.text_field :name, :class => 'fullwidth title' %>
+        <%= f.error_message_on :name %>
+      <% end %>
+    <% end %>
+
+  </fieldset>
+  <% end %>
+</div>

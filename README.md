@@ -1,15 +1,16 @@
 Spree Globalize3
-===============
+================
 
-Translatable Spree products, taxonomy and taxons with Globalize3.
-
+Translatable Spree products, taxonomy, taxons with Globalize3.
+This is intended for Spree v1.3.x, Spree v2 users should use
+spree_i18n gem.
 
 Install
 -------
 
 Gemfile:
 ```ruby
-gem 'spree_globalize3',  github: 'cantierecreativo/spree_globalize3'
+gem 'spree_globalize3',  github: 'cantierecreativo/spree_globalize3', branch: '1-3-stable'
 ```
 
 ```

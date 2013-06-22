@@ -1,10 +1,10 @@
 class AddGlobalizeToMainModels < ActiveRecord::Migration
   def up
-    attributes = { name: :string, description: :text,
+    attributes = { name: :string, description: :text, permalink: :string,
                    meta_description: :string, meta_keywords: :string }
     Spree::Product.create_translation_table!(attributes, { migrate_data: true })
 
-    attributes = { name: :string, description: :text }
+    attributes = { name: :string, description: :text, permalink: :string }
     Spree::Taxon.create_translation_table!(attributes, { migrate_data: true })
 
     attributes = { name: :string }

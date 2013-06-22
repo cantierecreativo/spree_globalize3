@@ -13,6 +13,8 @@ describe Spree::OptionType do
     context "english" do
       before(:all) { I18n.locale = :en }
 
+      its(:name) { should eq "color-shirt" }
+      its(:presentation) { should eq "Color" }
     end
 
     context "italiano" do

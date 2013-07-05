@@ -14,7 +14,7 @@ Spree::Product.class_eval do
     if other.any?
       # Find the existing permalink with the highest number, and increment that number.
       # (If none of the existing permalinks have a number, this will evaluate to 1.)
-      number = other.map { |o| o.send(field)[/-(\d+)$/, 1].to_i }.max + 1
+      number = other.map { |o| o.permalink[/-(\d+)$/, 1].to_i }.max + 1
       permalink_value += "-#{number.to_s}"
     end
     write_attribute(field, permalink_value)

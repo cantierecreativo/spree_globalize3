@@ -33,12 +33,25 @@ describe Spree::Product do
 
   context "permalink translation" do
     let!(:product) { create :simple_product, name: "Foo" }
+    before(:all) { I18n.locale = :it }
 
     it "adds a number when there's already a product with that name" do
       product2 = create :simple_product, name: "Foo"
       product3 = create :simple_product, name: "Foo"
-      expect(product2.permalink).to eq "foo-1"
-      expect(product3.permalink).to eq "foo-2"
+      product.set_translations en: { name: "Foo" }, it: { name: "Antani" }
+      product2.set_translations en: { name: "Foo" }, it: { name: "Antani" }
+      product3.set_translations en: { name: "Foo" }, it: { name: "Antani" }
+      [:en, :it].each do |lang|
+        I18n.with_locale(lang) { [product, product2, product3].map(&:save!) }
+      end
+      I18n.with_locale(:en) do
+        expect(product2.permalink).to eq "foo-1"
+        expect(product3.permalink).to eq "foo-2"
+      end
+      I18n.with_locale(:it) do
+        expect(product2.permalink).to eq "antani-4" # FIXME: this should be "antani-1"
+        expect(product3.permalink).to eq "antani-5" # FIXME: this should be "antani-2"
+      end
     end
   end
 

@@ -21,4 +21,10 @@ Spree::Product.class_eval do
   end
 
   before_validation(:on => :update) { save_permalink }
+
+  def self.like_any(fields, values)
+    translations = Spree::Product::Translation.arel_table
+    conditions = fields.map{|f| values.map{|v| translations[f].matches("%#{v}%")}}.flatten.inject{|memo, c| memo.or(c)}
+    self.with_translations(I18n.locale).where(conditions)
+  end
 end

@@ -55,4 +55,25 @@ describe Spree::Product do
     end
   end
 
+  describe ".like_any" do
+    before(:all) { I18n.locale = :en }
+
+    it "searches for fields in current translation only" do
+      {foo: :antani, bar: :sbiliguda}.each {|en, it| create(:simple_product, name: en).set_translations(en: {name: en}, it: {name: it})}
+      [:en, :it].each do |lang|
+        I18n.with_locale(lang) {Spree::Product.all.map &:save!}
+      end
+      I18n.with_locale(:en) do
+        expect(Spree::Product.like_any([:name], %w[fo ba]).count).to eq 2
+        expect(Spree::Product.like_any([:name], %w[fo anta]).count).to eq 1
+        expect(Spree::Product.like_any([:name], %w[fo]).first.name).to eq "foo"
+      end
+      I18n.with_locale(:it) do
+        expect(Spree::Product.like_any([:name], %w[anta sbili]).count).to eq 2
+        expect(Spree::Product.like_any([:name], %w[anta bar]).count).to eq 1
+        expect(Spree::Product.like_any([:name], %w[anta]).first.name).to eq "antani"
+      end
+    end
+  end
+
 end

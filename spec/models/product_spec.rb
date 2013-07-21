@@ -45,12 +45,12 @@ describe Spree::Product do
         I18n.with_locale(lang) { [product, product2, product3].map(&:save!) }
       end
       I18n.with_locale(:en) do
-        expect(product2.permalink).to eq "foo-1"
-        expect(product3.permalink).to eq "foo-2"
+        expect(product2.permalink).to eq "foo-001"
+        expect(product3.permalink).to eq "foo-002"
       end
       I18n.with_locale(:it) do
-        expect(product2.permalink).to eq "antani-4" # FIXME: this should be "antani-1"
-        expect(product3.permalink).to eq "antani-5" # FIXME: this should be "antani-2"
+        expect(product2.permalink).to eq "antani-001"
+        expect(product3.permalink).to eq "antani-002"
       end
     end
   end

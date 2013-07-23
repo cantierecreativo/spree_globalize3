@@ -8,9 +8,12 @@ Spree::Product.class_eval do
 
   def save_permalink
     permalink_value = name.to_s.to_url
+
     field = self.class.permalink_field
     # Do other links exist with this permalink? Just look at the name
-    other = self.class.where('permalink like ?', "#{permalink_value}%").select { |p| p.permalink =~ /#{permalink_value}(-[0-9]+|$)/ }
+    pt_table = Spree::Product::Translation.arel_table
+    other = self.class.with_translations(I18n.locale).where(pt_table[:permalink].matches("#{permalink_value}%")).select { |p| p.permalink =~ /#{permalink_value}(-[0-9]+|$)/ }
+    #other = self.class.where("permalink like ?", '#{permalink_value}%').select { |p| p.permalink =~ /#{permalink_value}(-[0-9]+|$)/ }
     if other.any?
       # Find the existing permalink with the highest number, and increment that number.
       # (If none of the existing permalinks have a number, this will evaluate to 1.)

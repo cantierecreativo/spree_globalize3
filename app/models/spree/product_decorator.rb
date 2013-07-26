@@ -8,6 +8,7 @@ Spree::Product.class_eval do
 
   def save_permalink
     permalink_value = name.to_s.to_url
+    return if self.permalink_was =~ /^#{permalink_value}(-\d{3})?$/
 
     field = self.class.permalink_field
     # Do other links exist with this permalink? Just look at the name

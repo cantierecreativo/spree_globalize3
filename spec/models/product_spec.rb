@@ -69,6 +69,28 @@ describe Spree::Product do
        expect(product3.permalink).to eq "otto-002"
       end
     end
+
+    it "does not change a permalink on multiple saves" do
+      product.set_translations en: { name: "Foo" }, it: { name: "Antani" }
+      [:en, :it].each do |lang|
+        I18n.with_locale(lang) { product.save! }
+      end
+      10.times { product.save! }
+      expect(product.permalink).to eq "antani"
+    end
+
+    it "does not alter other products permalink" do
+      product.set_translations en: { name: "Foo" }, it: { name: "Antani" }
+      product2 = create :simple_product
+      product2.set_translations en: { name: "Foo" }, it: { name: "Antani" }
+      [:en, :it].each do |lang|
+        I18n.with_locale(lang) { [product, product2].map(&:save!) }
+      end
+      10.times { product.save! }
+      10.times { product2.save! }
+      expect(product.permalink).to eq  "antani"
+      expect(product2.permalink).to eq "antani-001"
+    end
   end
 
   describe ".like_any" do
